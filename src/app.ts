@@ -1,15 +1,22 @@
 import './setup.ts';
+import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import serverError from './middlewares/serverError.middleware';
+import connectDatabase from './database/connectDatabase';
+import disciplineRouter from './routers/discipline.router';
+import teacherRouter from './routers/teacher.router';
+import categoryRouter from './routers/category.router';
+
+export async function init() {
+  await connectDatabase();
+}
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/status', async (req: Request, res: Response) => {
-  res.send("I'm alive");
-});
+app.use('/disciplines', disciplineRouter);
 
 app.use(serverError);
 
