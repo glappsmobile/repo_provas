@@ -47,7 +47,43 @@ const findTests = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
+const findTestsByDisciplineId = async (req: Request, res: Response, next: NextFunction)
+  : Promise<AppResponse> => {
+  if (testValidation.findTestsByDisciplineId.validate(req.params).error) {
+    return res.status(statusCode.BAD_REQUEST).send('Body parameter(s) filled incorrectly.');
+  }
+
+  const disciplineId = Number(req.params.disciplineId);
+
+  try {
+    const tests = await testService.findTestsByDisciplineId(disciplineId);
+
+    return res.send(tests);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const findTestsByTeacherId = async (req: Request, res: Response, next: NextFunction)
+  : Promise<AppResponse> => {
+  if (testValidation.findTestsByTeacherId.validate(req.params).error) {
+    return res.status(statusCode.BAD_REQUEST).send('Body parameter(s) filled incorrectly.');
+  }
+
+  const teacherId = Number(req.params.teacherId);
+
+  try {
+    const tests = await testService.findTestsByTeacherId(teacherId);
+
+    return res.send(tests);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   createTest,
   findTests,
+  findTestsByDisciplineId,
+  findTestsByTeacherId,
 };

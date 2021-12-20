@@ -10,6 +10,16 @@ const createTest = joi.object({
   disciplineId: joi.number().required(),
 });
 
+const findTestsByDisciplineId = joi.object({
+  disciplineId: joi.number().required(),
+});
+
+const findTestsByTeacherId = joi.object({
+  teacherId: joi.number().required(),
+});
+
 export {
   createTest,
+  findTestsByDisciplineId,
+  findTestsByTeacherId,
 };

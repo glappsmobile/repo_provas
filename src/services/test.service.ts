@@ -83,7 +83,23 @@ const findTests = async () => {
   return tests;
 };
 
+const findTestsByDisciplineId = async (disciplineId: number) => {
+  const tests = await getRepository(TestEntity)
+    .find({ disciplineId });
+
+  return tests;
+};
+
+const findTestsByTeacherId = async (teacherId: number) => {
+  const tests = await getRepository(TestEntity)
+    .find({ teacherId });
+
+  return tests;
+};
+
 export {
   createTest,
   findTests,
+  findTestsByDisciplineId,
+  findTestsByTeacherId,
 };
