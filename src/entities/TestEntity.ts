@@ -1,7 +1,7 @@
 import {
   Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne,
 } from 'typeorm';
-
+import { FullTest } from '../protocols/Test';
 import CategoryEntity from './CategoryEntity';
 import TeacherEntity from './TeacherEntity';
 import DisciplineEntity from './DisciplineEntity';
@@ -43,6 +43,19 @@ class TestEntity {
   @ManyToOne(() => DisciplineEntity, (discipline) => discipline.id, { eager: true })
   @JoinColumn({ name: 'discipline_id' })
     discipline: DisciplineEntity;
+
+  getTest(): FullTest {
+    return {
+      id: this.id,
+      url: this.url,
+      name: this.name,
+      year: this.year,
+      semester: this.semester,
+      category: this.category,
+      teacher: this.teacher,
+      discipline: this.discipline,
+    };
+  }
 }
 
 export default TestEntity;

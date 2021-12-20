@@ -1,11 +1,23 @@
-import { getRepository } from 'typeorm';
-import DisciplineEntity from '../entities/DisciplineEntity';
+import { getManager } from 'typeorm';
 
 const findDisciplines = async () => {
-  const disciplines = await getRepository(DisciplineEntity)
-    .find();
+  const disciplines = await getManager().query(
+    `SELECT
+      disciplines.*,
+      (
+        SELECT
+          json_agg(tests.id) AS tests
+        FROM tests
+        WHERE tests.teacher_id = disciplines.id
+      ) AS tests
+    FROM disciplines;`,
+  );
 
-  return disciplines;
+  return disciplines.map((discipline: any) => ({
+    id: discipline.id,
+    name: discipline.name,
+    testsCount: discipline.tests ? discipline.tests.length : 0,
+  }));
 };
 
 export {

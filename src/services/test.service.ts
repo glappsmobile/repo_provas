@@ -4,7 +4,7 @@ import TestEntity from '../entities/TestEntity';
 import DisciplineEntity from '../entities/DisciplineEntity';
 import CategoryEntity from '../entities/CategoryEntity';
 import TeacherEntity from '../entities/TeacherEntity';
-import Test from '../protocols/Test';
+import { TestParams, FullTest } from '../protocols/Test';
 import InternalError from '../errors/InternalError';
 import TestError from '../errors/TestError';
 
@@ -18,7 +18,7 @@ function validURL(str: string) {
   return !!pattern.test(str);
 }
 
-const createTest = async (test: Test): Promise<boolean> => {
+const createTest = async (test: TestParams): Promise<boolean> => {
   test.name = test.name.trim();
 
   const {
@@ -76,25 +76,25 @@ const createTest = async (test: Test): Promise<boolean> => {
   return true;
 };
 
-const findTests = async () => {
+const findTests = async (): Promise<FullTest[]> => {
   const tests = await getRepository(TestEntity)
     .find();
 
-  return tests;
+  return tests.map((test) => test.getTest());
 };
 
-const findTestsByDisciplineId = async (disciplineId: number) => {
+const findTestsByDisciplineId = async (disciplineId: number): Promise<FullTest[]> => {
   const tests = await getRepository(TestEntity)
     .find({ disciplineId });
 
-  return tests;
+  return tests.map((test) => test.getTest());
 };
 
-const findTestsByTeacherId = async (teacherId: number) => {
+const findTestsByTeacherId = async (teacherId: number): Promise<FullTest[]> => {
   const tests = await getRepository(TestEntity)
     .find({ teacherId });
 
-  return tests;
+  return tests.map((test) => test.getTest());
 };
 
 export {

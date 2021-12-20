@@ -3,9 +3,23 @@ interface Test {
   name: string;
   year: number;
   semester: number;
+}
+
+interface TestParams extends Test {
   teacherId: number;
   categoryId: number;
   disciplineId: number;
 }
 
-export default Test;
+interface FullTest extends Test {
+  id: number;
+  category: any;
+  teacher: any;
+  discipline: any;
+}
+
+export {
+  Test,
+  TestParams,
+  FullTest,
+};
