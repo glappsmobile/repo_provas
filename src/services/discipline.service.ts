@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm';
-import Discipline from '../entities/DisciplineEntity';
+import DisciplineEntity from '../entities/DisciplineEntity';
 
 const findDisciplines = async () => {
-  const disciplines = await getRepository(Discipline)
+  const disciplines = await getRepository(DisciplineEntity)
     .find();
 
   return disciplines;

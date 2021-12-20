@@ -7,6 +7,7 @@ import connectDatabase from './database/connectDatabase';
 import disciplineRouter from './routers/discipline.router';
 import teacherRouter from './routers/teacher.router';
 import categoryRouter from './routers/category.router';
+import testRouter from './routers/test.router';
 
 export async function init() {
   await connectDatabase();
@@ -21,6 +22,8 @@ app.use('/disciplines', disciplineRouter);
 app.use('/teachers', teacherRouter);
 
 app.use('/categories', categoryRouter);
+
+app.use('/tests', testRouter);
 
 app.use(serverError);
 

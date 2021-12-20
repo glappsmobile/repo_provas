@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppResponse } from '../interfaces/appResponse.interface';
-import * as teacherService from '../services/teacher.service';
 import { statusCode } from '../enums/httpStatus';
+import * as teacherService from '../services/teacher.service';
 import * as teacherValidation from '../validations/teacher.validation';
 
 const findTeachers = async (req: Request, res: Response, next: NextFunction)
