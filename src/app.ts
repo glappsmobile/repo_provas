@@ -1,4 +1,4 @@
-import './setup.ts';
+import './setup';
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
