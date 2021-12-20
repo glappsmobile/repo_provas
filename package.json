@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test npx jest -i",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "@types/joi": "^17.2.3",
     "@types/node": "^16.11.13",
     "@types/pg": "^8.6.1",
+    "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
@@ -34,6 +35,7 @@
     "pg": "^8.7.1",
     "prettier": "2.5.1",
     "supertest": "^6.1.6",
+    "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
