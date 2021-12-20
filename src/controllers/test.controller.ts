@@ -36,6 +36,18 @@ const createTest = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
+const findTests = async (req: Request, res: Response, next: NextFunction)
+  : Promise<AppResponse> => {
+  try {
+    const tests = await testService.findTests();
+
+    return res.send(tests);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   createTest,
+  findTests,
 };
