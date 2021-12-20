@@ -28,7 +28,9 @@ const findTeachersByDisciplineId = async (disciplineId: number) => {
         SELECT
           json_agg(tests.id) AS tests
         FROM tests
-        WHERE tests.teacher_id = teachers.id
+        WHERE
+          tests.teacher_id = teachers.id AND
+          tests.discipline_id = $1
       ) AS tests
     FROM teachers
       JOIN teachers_disciplines
@@ -39,7 +41,11 @@ const findTeachersByDisciplineId = async (disciplineId: number) => {
     [disciplineId],
   );
 
-  return teachers;
+  return teachers.map((teacher: any) => ({
+    id: teacher.id,
+    name: teacher.name,
+    testsCount: teacher.tests ? teacher.tests.length : 0,
+  }));
 };
 
 export {

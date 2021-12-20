@@ -8,7 +8,7 @@ const findDisciplines = async () => {
         SELECT
           json_agg(tests.id) AS tests
         FROM tests
-        WHERE tests.teacher_id = disciplines.id
+        WHERE tests.discipline_id = disciplines.id
       ) AS tests
     FROM disciplines;`,
   );
