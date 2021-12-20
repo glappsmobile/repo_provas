@@ -5,7 +5,7 @@ const router = Router();
 
 router.post('', testController.createTest);
 router.get('', testController.findTests);
-router.get('/disciplines/:disciplineId', testController.findTestsByDisciplineId);
-router.get('/teachers/:teacherId', testController.findTestsByTeacherId);
+router.get('/discipline/:disciplineId', testController.findTestsByDisciplineId);
+router.get('/teacher/:teacherId', testController.findTestsByTeacherId);
 
 export default router;

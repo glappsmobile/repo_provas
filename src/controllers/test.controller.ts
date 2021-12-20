@@ -58,6 +58,10 @@ const findTestsByDisciplineId = async (req: Request, res: Response, next: NextFu
   try {
     const tests = await testService.findTestsByDisciplineId(disciplineId);
 
+    if (tests.length === 0) {
+      return res.status(statusCode.NOT_FOUND).send('Discipline not found.');
+    }
+
     return res.send(tests);
   } catch (error) {
     next(error);
@@ -74,6 +78,10 @@ const findTestsByTeacherId = async (req: Request, res: Response, next: NextFunct
 
   try {
     const tests = await testService.findTestsByTeacherId(teacherId);
+
+    if (tests.length === 0) {
+      return res.status(statusCode.NOT_FOUND).send('Teacher not found.');
+    }
 
     return res.send(tests);
   } catch (error) {
