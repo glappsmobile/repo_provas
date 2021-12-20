@@ -1,6 +1,6 @@
+import '../../src/setup.ts';
 import { getConnection } from 'typeorm';
 import supertest from 'supertest';
-import '../../src/setup.ts';
 import app, { init } from '../../src/app';
 
 beforeAll(async () => {
