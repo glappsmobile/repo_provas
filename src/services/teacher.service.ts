@@ -1,5 +1,4 @@
-import { getRepository, getManager } from 'typeorm';
-import TeacherDisciplineEntity from '../entities/TeacherDisciplineEntity';
+import { getManager } from 'typeorm';
 
 const findTeachers = async () => {
   const teachers = await getManager().query(
@@ -22,13 +21,25 @@ const findTeachers = async () => {
 };
 
 const findTeachersByDisciplineId = async (disciplineId: number) => {
-  const teachersDisciplines = await getRepository(TeacherDisciplineEntity)
-    .find({
-      relations: ['teacher'],
-      where: { disciplineId },
-    });
+  const teachers = await getManager().query(
+    `SELECT
+      teachers.*,
+      (
+        SELECT
+          json_agg(tests.id) AS tests
+        FROM tests
+        WHERE tests.teacher_id = teachers.id
+      ) AS tests
+    FROM teachers
+      JOIN teachers_disciplines
+        ON teachers_disciplines.teacher_id = teachers.id
+          JOIN disciplines
+            ON teachers_disciplines.discipline_id = disciplines.id
+    WHERE disciplines.id = $1;`,
+    [disciplineId],
+  );
 
-  return teachersDisciplines.map((teachersDiscipline) => teachersDiscipline.teacher);
+  return teachers;
 };
 
 export {
