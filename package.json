@@ -2,7 +2,6 @@
   "name": "repo-provas-backend",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
   "main": "server.js",
   "scripts": {
     "test": "npx jest -i",
