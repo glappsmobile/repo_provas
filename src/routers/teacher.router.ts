@@ -4,6 +4,6 @@ import * as teacherController from '../controllers/teacher.controller';
 const router = Router();
 
 router.get('', teacherController.findTeachers);
-router.get('/:disciplineId', teacherController.findTeachersByDisciplineId);
+router.get('/discipline/:disciplineId', teacherController.findTeachersByDisciplineId);
 
 export default router;
