@@ -55,7 +55,4 @@ describe('POST /tests', () => {
     const result = await supertest(app).post('/tests').send(body);
     expect(result.status).toEqual(201);
   });
-
-
 });
-

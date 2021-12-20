@@ -42,7 +42,7 @@ const createTest = async (test: TestParams): Promise<boolean> => {
   }
 
   if (semester !== 1 && semester !== 2) {
-    throw new TestError('Invalid semester.');
+    throw new TestError(`Invalid semester. ${semester}`);
   }
 
   const discipline = await getRepository(DisciplineEntity)

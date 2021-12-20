@@ -19,7 +19,13 @@ const createTest = async (req: Request, res: Response, next: NextFunction)
   try {
     await testService
       .createTest({
-        url, name, year, semester, categoryId, teacherId, disciplineId,
+        url,
+        name,
+        year,
+        semester: Number(semester),
+        categoryId,
+        teacherId,
+        disciplineId,
       });
 
     return res.sendStatus(201);
