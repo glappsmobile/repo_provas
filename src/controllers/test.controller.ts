@@ -3,6 +3,8 @@ import { AppResponse } from '../interfaces/appResponse.interface';
 import { statusCode } from '../enums/httpStatus';
 import * as testService from '../services/test.service';
 import * as testValidation from '../validations/test.validation';
+import InternalError from '../errors/InternalError';
+import TestError from '../errors/TestError';
 
 const createTest = async (req: Request, res: Response, next: NextFunction)
   : Promise<AppResponse> => {
@@ -15,13 +17,21 @@ const createTest = async (req: Request, res: Response, next: NextFunction)
   } = req.body;
 
   try {
-    const test = await testService
+    await testService
       .createTest({
         url, name, year, semester, categoryId, teacherId, disciplineId,
       });
 
-    return res.send(test);
+    return res.sendStatus(201);
   } catch (error) {
+    if (error instanceof InternalError) {
+      return res.status(statusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+
+    if (error instanceof TestError) {
+      return res.status(statusCode.BAD_REQUEST).send(error.message);
+    }
+
     next(error);
   }
 };
