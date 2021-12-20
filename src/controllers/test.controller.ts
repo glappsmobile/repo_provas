@@ -3,8 +3,6 @@ import { AppResponse } from '../interfaces/appResponse.interface';
 import { statusCode } from '../enums/httpStatus';
 import * as testService from '../services/test.service';
 import * as testValidation from '../validations/test.validation';
-import InternalError from '../errors/InternalError';
-import TestError from '../errors/TestError';
 
 const createTest = async (req: Request, res: Response, next: NextFunction)
   : Promise<AppResponse> => {
@@ -30,11 +28,11 @@ const createTest = async (req: Request, res: Response, next: NextFunction)
 
     return res.sendStatus(201);
   } catch (error) {
-    if (error instanceof InternalError) {
+    if (error.name === 'InternalError') {
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(error.message);
     }
 
-    if (error instanceof TestError) {
+    if (error.name === 'TestError') {
       return res.status(statusCode.BAD_REQUEST).send(error.message);
     }
 

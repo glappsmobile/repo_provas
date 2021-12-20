@@ -15,6 +15,14 @@ afterAll(async () => {
   await getConnection().close();
 });
 
+describe('POST /tests', () => {
+  test('returns 201 with valid data', async () => {
+    const body = testFactory.createBody();
+    const result = await supertest(app).post('/tests').send(body);
+    expect(result.status).toEqual(201);
+  });
+});
+
 describe('GET /tests', () => {
   test('returns 200', async () => {
     const result = await supertest(app).get('/tests');
@@ -49,10 +57,3 @@ describe('GET /tests/teacher/:teacherId', () => {
   });
 });
 
-describe('POST /tests', () => {
-  test('returns 201 with valid data', async () => {
-    const body = testFactory.createBody();
-    const result = await supertest(app).post('/tests').send(body);
-    expect(result.status).toEqual(201);
-  });
-});
